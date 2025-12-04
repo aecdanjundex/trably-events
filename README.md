@@ -1,29 +1,88 @@
-# Create T3 App
+# Trably Events
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+A modern events platform to discover, sell, and manage tickets with a fast, accessible UI and secure authentication.
 
-## What's next? How do I make an app with this?
+## Overview
+- Clean event pages with hero, details, ticket sidebar, and producer info.
+- Checkout flow with countdown reservation, order summary, and payment options UI.
+- Auth via NextAuth (Google), dark/light theme toggle, responsive navbar and footer.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Key Features
+- **Featured Events:** Curated grid with title, city, and date.
+- **Event Page:** Banner, schedule/location, ticket CTA, and organizer card.
+- **Checkout:** Live countdown to hold tickets; clear release message when it expires.
+- **Auth:** OAuth through Google; shadcn UI login form with validation.
+- **UI System:** shadcn/ui components, Tailwind v4, and theme switcher.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Tech Stack
+- **Framework:** Next.js 15, React 19, TypeScript
+- **UI:** shadcn/ui, Tailwind CSS, lucide-react
+- **Data:** Drizzle ORM
+- **API:** tRPC
+- **Auth:** NextAuth
+- **Infra (local):** Postgres + Redis via Docker Compose
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Quickstart
+1) Environment
+```bash
+cp .env.example .env
+# Fill in NextAuth and database vars
+# AUTH_SECRET=...
+# AUTH_GOOGLE_ID=...
+# AUTH_GOOGLE_SECRET=...
+# Optional inbound ports used by docker-compose
+# POSTGRES_PORT=5432
+# REDIS_PORT=6379
+```
 
-## Learn More
+2) Start services
+```bash
+docker compose up -d
+```
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+3) Database (Drizzle)
+```bash
+bun run db:push
+# or: yarn db:push
+```
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+4) Dev server
+```bash
+bun run dev
+# or: yarn dev
+```
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+## Scripts
+- `dev`: Run Next.js in Turbopack mode
+- `build` / `start`: Build and serve
+- `db:generate` / `db:migrate` / `db:push` / `db:studio`: Drizzle kit
+- `lint` / `format:*` / `typecheck`: Quality gates
 
-## How do I deploy this?
+## Project Structure
+- `src/app` — routes and pages
+  - `/` homepage with search and Featured Events
+  - `/login` shadcn-based login
+  - `/event/[slug]` event details
+  - `/event/[slug]/checkout` checkout with countdown
+- `src/components` — reusable components
+  - `navbar`, `footer`, `featured-events`
+  - `components/event/*` widgets (tickets sidebar, counter)
+  - `components/ui/*` shadcn ui primitives
+- `src/server` — tRPC routers and auth config
+- `src/db` — Drizzle schema and client
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## Docker Compose
+- Postgres `postgres:16-alpine` and Redis `redis:7-alpine`
+- Ports are configurable via `.env`: `POSTGRES_PORT`, `REDIS_PORT`
+- Start/stop:
+```bash
+docker compose up -d
+docker compose down
+```
+
+## Notes
+- Theme switching uses `next-themes` with class strategy in `src/app/layout.tsx`.
+- For OAuth, set `AUTH_SECRET`, `AUTH_GOOGLE_ID`, and `AUTH_GOOGLE_SECRET` in `.env`.
+
+## License
+This repository is for demonstration and internal use. Add a license if you plan to distribute.
