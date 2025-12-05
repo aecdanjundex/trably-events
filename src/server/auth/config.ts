@@ -37,7 +37,7 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authConfig = {
-  session: { strategy: "jwt" },
+  session: { strategy: "database" },
   providers: [
     GoogleProvider({
       clientId: process.env.AUTH_GOOGLE_ID!,
@@ -54,18 +54,35 @@ export const authConfig = {
      */
   ],
   callbacks: {
-    jwt: async ({ token, user }) => {
+    jwt: async ({ token, user, account, trigger }) => {
+      console.log("JWT callback:", { user, trigger });
+
       return token;
     },
-    session: ({ session, user }) => ({
+    session: ({ session, user, newSession }) => ({
       ...session,
       user: {
         ...session.user,
       },
     }),
+    signIn: async ({ user, account, profile, email, credentials }) => {
+      console.log(credentials);
+
+      return true;
+    },
+    authorized: async ({ request, auth }) => {
+      return true;
+    },
   },
+  adapter: DrizzleAdapter(db, {
+    usersTable: users,
+    accountsTable: accounts,
+    sessionsTable: sessions,
+    verificationTokensTable: verificationTokens,
+  }),
   pages: {
     signIn: "/login",
     signOut: "/",
+    newUser: "/complete-profile",
   },
 } satisfies NextAuthConfig;

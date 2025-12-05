@@ -7,7 +7,7 @@ import { FeaturedEvents } from "~/components/featured-events";
 
 export default async function HomePage() {
   return (
-    <main className="container mx-auto py-8">
+    <main className="container mx-auto px-4 py-8 sm:px-0">
       <div className="mb-2">
         <h1 className="text-2xl font-bold">Bem-vindo ao Trably Events</h1>
         <p className="mt-2 text-gray-600">

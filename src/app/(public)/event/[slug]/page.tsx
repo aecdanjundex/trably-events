@@ -7,7 +7,7 @@ import { TicketsSidebar } from "~/components/event/tickets-sidebar";
 
 export default function EventSlugPage() {
   return (
-    <main className="container mx-auto py-8">
+    <main className="container mx-auto px-4 py-8 sm:px-0">
       {/* Hero banner with blur background and foreground card */}
       <div className="relative">
         <div className="flex flex-col gap-4">
@@ -21,7 +21,7 @@ export default function EventSlugPage() {
 
             <div className="mt-2 text-sm">
               <span>Evento presencial em </span>
-              <a href="#" className="underline">
+              <a href="#" className="text-primary underline">
                 Centro Esportivo Tietê, São Paulo - SP
               </a>
             </div>
@@ -72,7 +72,7 @@ export default function EventSlugPage() {
       </div>
 
       {/* Main body */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto py-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {/* Description */}
           <div className="md:col-span-2">

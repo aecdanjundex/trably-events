@@ -4,7 +4,7 @@ import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 export function Footer() {
   return (
     <footer className="bg-accent">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 sm:px-0">
         {/* Top brand + app badges */}
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div className="font-bold">Trably Events</div>
@@ -100,18 +100,18 @@ export function Footer() {
         <div className="bg-border my-6 h-px w-full" />
 
         {/* Legal */}
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="text-muted-foreground flex flex-wrap gap-4 text-sm">
+        <div className="flex flex-col items-center gap-4 md:flex-row md:justify-between">
+          <div className="text-muted-foreground flex flex-wrap items-center gap-4 text-sm sm:items-start">
             <Link href="#">Termos e Políticas</Link>
             <Link href="#">Ética e conduta</Link>
             <Link href="#">Mapa do Site</Link>
           </div>
-          <div className="text-muted-foreground text-sm">
+          <div className="text-muted-foreground text-center text-sm sm:text-left">
             Trably © {new Date().getFullYear()} — CNPJ:{" "}
             <span className="font-medium">44.295.500/0001-73</span> — Avenida
             Paulista, 1106, Sala 01 Andar 16 — São Paulo — SP — CEP: 01310-914
           </div>
-          <div className="text-muted-foreground text-sm">
+          <div className="text-muted-foreground text-center text-sm sm:text-left">
             Precisa de ajuda?{" "}
             <Link href="#" className="underline">
               Entre em contato conosco
